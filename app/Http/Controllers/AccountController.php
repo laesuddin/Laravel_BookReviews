@@ -100,7 +100,7 @@ class AccountController extends Controller
 
             // create new image instance
             $manager = new ImageManager(Driver::class);
-            $img = $manager->read(public_path('uploads/profile/'.$imageName)); // 800 x 600
+            $img = $manager->read(public_path('uploads/profile/'.$imageName));
             $img->cover(150, 150);
             $img->save(public_path('uploads/profile/thumb/'.$imageName));
         }   
