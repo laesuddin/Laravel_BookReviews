@@ -75,12 +75,57 @@ class BookController extends Controller
 
     }
     //This method will show edit book page
-    public function edit(){
-
+    public function edit($id){
+        $book = Book::findOrFail($id);
+        return view('books.edit', [
+                'book' => $book
+        ]);
     }
     //This method will update a book
-    public function update(){
+    public function update($id, Request $request){
+        $book = Book::findOrFail($id);
+        $rules = [
+            'title' => 'required|min:5',
+            'author' => 'required|min:3',
+            'status' => 'required',
+        ];
+        if(!empty($request->image)){
+            $rules['image'] = 'image';
+        }
 
+        $validator = Validator::make($request->all(),$rules);
+
+        if($validator->fails()){
+            return redirect()->route('books.edit',$book->id)->withInput()->withErrors($validator);
+        }
+
+        //Update book in database
+        $book->title = $request->title;
+        $book->author = $request->author;
+        $book->description = $request->description;
+        $book->status = $request->status;
+        $book->save();
+
+        //Upload book image here
+        if (!empty($request->image)) {
+            //Delete old image 
+            File::delete(public_path('uploads/books/'.$book->image));
+            File::delete(public_path('uploads/books/thumb/'.$book->image));
+
+            $image = $request->image;
+            $extension = $image->getClientOriginalExtension();
+            $imageName = time().'.'.$extension;
+            $image->move(public_path('uploads/books'), $imageName);
+            $book->image = $imageName;
+            $book->save();
+
+            // Generate new image instance
+            $manager = new ImageManager(Driver::class);
+            $img = $manager->read(public_path('uploads/books/'.$imageName));
+            $img->resize(990);
+            $img->save(public_path('uploads/books/thumb/'.$imageName));
+        }  
+        return redirect()->route('books.index')->with('success', 'Book updated successfully.');
     }
     //This method will delete a book from database 
     public function destroy(){
