@@ -12,8 +12,15 @@ use Intervention\Image\Drivers\Gd\Driver;
 class BookController extends Controller
 {
     //This method will show books listing page
-    public function index(){
-        return view('books.list');
+    public function index(Request $request){
+        $books =  Book::orderBy('created_at', 'DESC');
+        if(!empty($request->keyword)){
+            $books->where('title', 'like', '%'.$request->keyword.'%');
+        }
+        $books = $books->paginate(10);
+        return view('books.list', [
+            'books' => $books
+        ]);
     }
     //This method will show create book page 
     public function create(){

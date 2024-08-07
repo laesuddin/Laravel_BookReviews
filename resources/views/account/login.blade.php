@@ -38,7 +38,7 @@
                                         </div>
                                         <div class="col-12">
                                             <div class="d-grid">
-                                                <button class="btn bsb-btn-xl btn-primary py-3" type="submit">Log In Now</button>
+                                                <button class="btn bsb-btn-xl btn-primary py-3" type="submit">Log In</button>
                                             </div>
                                         </div>
                                     </div>
