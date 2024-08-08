@@ -18,4 +18,16 @@ class HomeController extends Controller
             'books' => $books
         ]);
     }
+    //This method will show book details page 
+    public function details($id){
+        $book = Book::findOrFail($id);
+        if($book->status == 0){
+            abort(404);
+        }
+        $books = Book::where('status', 1)->take(3)->where('id', '!=', $id)->inRandomOrder()->get();
+        return view('book-details', [
+                'book' => $book,
+                'books' => $books
+        ]);
+    }
 }
