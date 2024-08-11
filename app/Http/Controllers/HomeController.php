@@ -23,14 +23,17 @@ class HomeController extends Controller
     }
     //This method will show book details page 
     public function details($id){
-        $book = Book::findOrFail($id);
+        $book = Book::with(['reviews.user', 'reviews' => function ($query) { 
+                $query->where('status', 1); 
+            }])->findOrFail($id);
+
         if($book->status == 0){
             abort(404);
         }
-        $books = Book::where('status', 1)->take(3)->where('id', '!=', $id)->inRandomOrder()->get();
+        $relatedBooks = Book::where('status', 1)->take(3)->where('id', '!=', $id)->inRandomOrder()->get();
         return view('book-details', [
                 'book' => $book,
-                'books' => $books
+                'relatedBooks' => $relatedBooks
         ]);
     }
     public function saveReview(Request $request){
@@ -61,7 +64,7 @@ class HomeController extends Controller
         $review->book_id = $request->book_id;
         $review->save();
 
-        $request->session()->flash('success', 'Review submitted successfully.');
+        $request->session()->flash('success', 'Review submitted successfully. Wait for approved');
         return response()->json([
             'status' => true,
         ]);
