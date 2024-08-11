@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ReviewController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/book/{id}', [HomeController::class, 'details'])->name('book.details');
@@ -27,5 +28,6 @@ Route::group(['prefix' => 'account'], function(){
         Route::get('books/edit/{id}', [BookController::class, 'edit'])->name('books.edit');
         Route::post('books/update/{id}', [BookController::class, 'update'])->name('books.update');
         Route::delete('books', [BookController::class, 'destroy'])->name('books.destroy');
+        Route::get('reviews', [ReviewController::class, 'index'])->name('account.reviews');
     });
 });
