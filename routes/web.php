@@ -29,5 +29,7 @@ Route::group(['prefix' => 'account'], function(){
         Route::post('books/update/{id}', [BookController::class, 'update'])->name('books.update');
         Route::delete('books', [BookController::class, 'destroy'])->name('books.destroy');
         Route::get('reviews', [ReviewController::class, 'index'])->name('account.reviews');
+        Route::get('reviews/{id}', [ReviewController::class, 'edit'])->name('account.reviews.edit');
+        Route::post('reviews/{id}', [ReviewController::class, 'updateReview'])->name('account.reviews.updateReview');
     });
 });
