@@ -53,7 +53,7 @@
                                                     <a href="#" class="btn btn-success btn-sm"><i class="fa-regular fa-star"></i></a>
                                                     <a href="{{route('books.edit', $book->id)}}" class="btn btn-primary btn-sm"><i class="fa-regular fa-pen-to-square"></i>
                                                     </a>
-                                                    <a href="#" onclick="deleteBook({{$book->id}});" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></a>
+                                                    <a href="#" onclick="deleteBook({{$book->id}})" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></a>
                                                 </td>
                                                 </tr>
                                             @endforeach
