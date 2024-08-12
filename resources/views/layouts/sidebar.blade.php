@@ -35,7 +35,7 @@
                 <a href="{{route('account.profile')}}">Profile</a>                               
             </li>
             <li class="nav-item">
-                <a href="">My Reviews</a>
+                <a href="{{route('account.my-reviews')}}">My Reviews</a>
             </li>
             <li class="nav-item">
                 <a href="change-password.html">Change Password</a>

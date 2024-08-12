@@ -64,7 +64,7 @@ class HomeController extends Controller
         $review->book_id = $request->book_id;
         $review->save();
 
-        $request->session()->flash('success', 'Review submitted successfully. Wait for approved');
+        $request->session()->flash('success', 'Review submitted successfully. Wait for approval');
         return response()->json([
             'status' => true,
         ]);
