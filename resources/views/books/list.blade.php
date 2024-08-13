@@ -38,10 +38,20 @@
                                     <tbody>
                                         @if ($books->isNotEmpty())
                                             @foreach ($books as $book)
+                                            @php
+                                                if($book->reviews_count > 0){
+                                                    $avgRating = $book->reviews_sum_rating / $book->reviews_count;
+                                                }else{
+                                                    $avgRating = 0;
+                                                }
+                                                $avgRatingPer = ($avgRating*100)/5;
+                                            @endphp
                                                 <tr>
                                                 <td>{{$book->title}}</td>
                                                 <td>{{$book->author}}</td>
-                                                <td>3.0 (3 Reviews)</td>
+                                                <td>{{number_format($avgRating, 1)}}
+                                                <span class="theme-font text-muted">({{($book->reviews_count > 1) ? $book->reviews_count. ' Reviews' : $book->reviews_count. ' Review'}})</span>
+                                                </td>
                                                 <td>
                                                     @if ($book->status == 1)
                                                         <span class="text-success">Active</span>
@@ -50,7 +60,6 @@
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    <a href="#" class="btn btn-success btn-sm"><i class="fa-regular fa-star"></i></a>
                                                     <a href="{{route('books.edit', $book->id)}}" class="btn btn-primary btn-sm"><i class="fa-regular fa-pen-to-square"></i>
                                                     </a>
                                                     <a href="#" onclick="deleteBook({{$book->id}})" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></a>
