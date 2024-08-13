@@ -17,7 +17,7 @@
                             @csrf
                             <div class="mb-3">
                             <label for="password" class="form-label">Password</label>
-                                <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" id="password" value="" placeholder="Password" >
+                                <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" id="password" value="" placeholder="New Password" >
                                 @error('password')
                                     <p class="invalid-feedback">{{$message}}</p>
                                 @enderror
