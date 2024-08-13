@@ -168,4 +168,26 @@ class AccountController extends Controller
             ]);
         }
     }
+    public function showPassword(Request $request)
+    {
+        return view('account.show-password');
+    }
+    public function updatePassword(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'password' => 'required|confirmed|min:5',
+            'password_confirmation' => 'required'
+        ]);
+
+        if($validator->fails()){
+            return redirect()->route('account.showPassword')->withInput()->withErrors($validator);
+        }
+
+        $user = Auth::user();
+        $user->password = Hash::make($request->password);
+        $user->save();
+
+        return redirect()->route('account.showPassword')->with('success', 'Password updated successfully!');
+    }
+
 }
