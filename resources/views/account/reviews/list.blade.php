@@ -89,23 +89,3 @@
         }
     </script>
 @endsection
-
-@section('script')
-    <script>
-        function deleteBook(id){
-            if(confirm("Are you sure you want to delete?")){
-                $.ajax({
-                    url:'{{route('account.reviews.deleteReview')}}',
-                    type: 'delete',
-                    data: {id:id},
-                    headers: {
-                        'X-CSRF-TOKEN' : '{{csrf_token()}}'
-                    },
-                    success: function(response){
-                        window.location.href = '{{route('books.index')}}';
-                    }
-                });
-            }
-        }
-    </script>
-@endsection

@@ -35,5 +35,6 @@ Route::group(['prefix' => 'account'], function(){
         Route::get('my-reviews', [AccountController::class, 'myReviews'])->name('account.my-reviews');
         Route::get('my-reviews/{id}', [AccountController::class, 'editReview'])->name('account.my-reviews.editReview');
         Route::post('my-reviews/{id}', [AccountController::class, 'updateReview'])->name('account.my-reviews.updateReview');
+        Route::post('delete-my-review', [ReviewController::class, 'deleteReview'])->name('account.my-reviews.deleteReview');
     });
 });
